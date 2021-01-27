@@ -4,6 +4,7 @@
 import { ECSEnvironment } from "./ECSEnvironment";
 export * from "./ECSComponent";
 export * from "./ECSEntity";
+export * from "./ECSEnvironment";
 export * from "./ECSEvent";
 export * from "./ECSSystem";
 /**

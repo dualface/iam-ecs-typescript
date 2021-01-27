@@ -17,6 +17,7 @@ exports.createECSEnv = void 0;
 var ECSImpl_1 = require("./impl/ECSImpl");
 __exportStar(require("./ECSComponent"), exports);
 __exportStar(require("./ECSEntity"), exports);
+__exportStar(require("./ECSEnvironment"), exports);
 __exportStar(require("./ECSEvent"), exports);
 __exportStar(require("./ECSSystem"), exports);
 /**
