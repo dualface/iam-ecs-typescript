@@ -47,15 +47,16 @@ DEMO 源代码: [https://github.com/dualface/ecs-typescript/tree/main/demo/asset
 整个游戏包含下列部分：
 
 -   组件：
-    -   `RenderNodeComponent`: 渲染节点组件用于引用在屏幕上的一个 `cc.Node`
-    -   `HealthComponent`: 健康组件用于保存 NPC 的当前 HP
-    -   `MovableComponent`: 可移动组件用于保存 NPC 的当前位置、移动方向、速度等状态
+    -   `NPCComponent`: 标记实体为 NPC 的组件，仅仅用于统计当前 NPC 数量。
+    -   `RenderNodeComponent`: 渲染节点组件用于引用在屏幕上的一个 `cc.Node`。
+    -   `HealthComponent`: 健康组件用于保存 NPC 的当前 HP。
+    -   `MovableComponent`: 可移动组件用于保存 NPC 的当前位置、移动方向、速度等状态。
 -   事件：
-    -   `AttackEvent`: 对一组目标发起攻击
+    -   `AttackEvent`: 对一组目标发起攻击。
 -   系统：
-    -   `MovableSystem`: 处理所有目标的移动
-    -   `InputSystem`: 处理用户的点击事件，如果点击到了 NPC，则创建 `AttackEvent` 事件
-    -   `AttackSystem`: 处理 `AttackEvent` 事件，并从屏幕上移除已经被消灭的目标
+    -   `MovableSystem`: 处理所有目标的移动。
+    -   `InputSystem`: 处理用户的点击事件，如果点击到了 NPC，则创建 `AttackEvent` 事件。
+    -   `AttackSystem`: 处理 `AttackEvent` 事件，并从屏幕上移除已经被消灭的目标。
 
 所有源代码在 `demo` 目录中，使用 Cocos Creator 2.4 最新版打开即可。
 
@@ -77,6 +78,6 @@ DEMO 源代码: [https://github.com/dualface/ecs-typescript/tree/main/demo/asset
 
 ## ECS API 说明
 
-所有 API 都在 `ecs/` 目录中，并且有中文注释，文档此处省略。。。
+所有 API 都在 `lib/ecs/` 目录中，并且有中文注释，文档此处省略。。。
 
 \-EOF\-
