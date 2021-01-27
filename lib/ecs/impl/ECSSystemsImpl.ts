@@ -1,3 +1,7 @@
+/**
+ * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
+ */
+
 import { ECSSystem, ECSSystems } from "../ECSSystem";
 import { ECSImpl } from "./ECSImpl";
 
@@ -60,7 +64,6 @@ export class ECSSystemsImpl implements ECSSystems {
         // 停止所有正在运行的系统
         this.loadedByName.forEach((system, name) => {
             if (this.systemsRunning.get(name) === true) {
-                // cc.log(`ECS: ${name}.stop()`);
                 system.stop();
             }
             this.systemsRunning.set(name, false);
@@ -112,11 +115,9 @@ export class ECSSystemsImpl implements ECSSystems {
 
         // 加入 loading 列表
         this.loading.set(name, [system, false]);
-        // cc.log(`ECS: ${name}.load() begin`);
         system
             .load()
             .then(() => {
-                // cc.log(`ECS: ${name}.load() completed`);
                 // 更新 loading 列表状态
                 this.loading.set(name, [system, true]);
                 // 检查 loading 列表
@@ -217,10 +218,5 @@ export class ECSSystemsImpl implements ECSSystems {
             system.start();
             this.systemsRunning.set(system.name, true);
         }
-
-        cc.log("ECS: systems order");
-        this.loaded.forEach((system) => {
-            cc.log(`  - [${system.priority}] ${system.name}`);
-        });
     }
 }

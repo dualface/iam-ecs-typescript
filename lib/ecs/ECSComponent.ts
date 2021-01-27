@@ -1,4 +1,8 @@
 /**
+ * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
+ */
+
+/**
  * 组件
  */
 export abstract class ECSComponent {
