@@ -10,6 +10,7 @@ COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
 
 在线 DEMO 展示: [https://liaoyulei.cn/projects/ecs-typescript/demo/](https://liaoyulei.cn/projects/ecs-typescript/demo/)
 
+DEMO 源代码: [https://github.com/dualface/ecs-typescript/tree/main/demo/assets/scripts](https://github.com/dualface/ecs-typescript/tree/main/demo/assets/scripts)
 
 ~
 
