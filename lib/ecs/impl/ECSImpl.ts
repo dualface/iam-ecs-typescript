@@ -2,11 +2,11 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECS } from "../ECS";
-import { ECSComponents } from "../ECSComponent";
-import { ECSEntities } from "../ECSEntity";
-import { ECSEvents } from "../ECSEvent";
-import { ECSSystems } from "../ECSSystem";
+import { ECSComponents } from "../ECSComponents";
+import { ECSEntities } from "../ECSEntities";
+import { ECSEnvironment } from "../ECSEnvironment";
+import { ECSEvents } from "../ECSEvents";
+import { ECSSystems } from "../ECSSystems";
 import { ECSEntitiesImpl } from "./ECSEntitiesImpl";
 import { ECSEventsImpl } from "./ECSEventsImpl";
 import { ECSSystemsImpl } from "./ECSSystemsImpl";
@@ -14,7 +14,7 @@ import { ECSSystemsImpl } from "./ECSSystemsImpl";
 /**
  * ECS 实现
  */
-export class ECSImpl implements ECS {
+export class ECSImpl implements ECSEnvironment {
     readonly events: ECSEvents;
     readonly systems: ECSSystems;
     readonly entities: ECSEntities;
@@ -48,9 +48,5 @@ export class ECSImpl implements ECS {
             // 所以只能在 update 之后再清理事件
             this.events.clear();
         }
-    }
-
-    clearEvents(): void {
-        this.events.clear();
     }
 }

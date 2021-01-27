@@ -2,7 +2,8 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSComponent, ECSComponents } from "./ECSComponent";
+import { ECSComponent } from "./ECSComponent";
+import { ECSComponents } from "./ECSComponents";
 
 /**
  * 用于生成实体唯一 ID
@@ -26,13 +27,13 @@ export class ECSEntity {
     /**
      * 全局组件集合，由 ECS 指定，让 Entity 可以直接将组件添加到 ECS 中
      */
-    __globalComponents: ECSComponents | undefined;
+    __globalComponents: ECSComponents | undefined = undefined;
 
     /**
      * 返回实体可用状态
      */
-    get enabled(): boolean {
-        return this.__enabled;
+    isEnabled(): boolean {
+        return this._enabled;
     }
 
     /**
@@ -40,13 +41,13 @@ export class ECSEntity {
      *
      * @param enabled
      */
-    set enabled(enabled: boolean) {
-        if (this.__enabled === enabled || !this.__globalComponents) {
+    setEnabled(enabled: boolean) {
+        if (this._enabled === enabled || !this.__globalComponents) {
             // 状态未改变，或者还未添加到 ECS 中的实体，设置 enabled 不起作用
             return;
         }
 
-        this.__enabled = enabled;
+        this._enabled = enabled;
         if (enabled) {
             // 把组件添加到全局组件列表
             this.components.forEach((component) => {
@@ -55,7 +56,7 @@ export class ECSEntity {
         } else {
             // 从全局组件列表移除组件
             this.components.forEach((component) => {
-                this.__globalComponents?.remove(component);
+                this.__globalComponents?.delete(component);
             });
         }
     }
@@ -124,7 +125,7 @@ export class ECSEntity {
         }
         const component = this.components.get(name);
         if (component && this.__globalComponents) {
-            this.__globalComponents.remove(component);
+            this.__globalComponents.delete(component);
         }
         this.components.delete(name);
         return this;
@@ -136,7 +137,7 @@ export class ECSEntity {
     removeAllComponents(): ECSEntity {
         if (this.__globalComponents) {
             this.components.forEach((component) => {
-                this.__globalComponents?.remove(component);
+                this.__globalComponents?.delete(component);
             });
         }
         this.components.clear();
@@ -148,50 +149,5 @@ export class ECSEntity {
     /**
      * 实体当前是否可用
      */
-    private __enabled: boolean = false;
-}
-
-/**
- * 实体集合
- */
-export interface ECSEntities {
-    /**
-     * 检查指定实体是否存在
-     *
-     * @param id
-     */
-    has(id: string): boolean;
-
-    /**
-     * 获取指定实体
-     *
-     * @param id
-     */
-    get(id: string): ECSEntity;
-
-    /**
-     * 添加实体
-     *
-     * @param entity
-     */
-    add(entity: ECSEntity): void;
-
-    /**
-     * 按照 ID 移除指定实体
-     *
-     * @param id
-     */
-    removeByID(id: string): void;
-
-    /**
-     * 移除实体
-     *
-     * @param entity
-     */
-    remove(entity: ECSEntity): void;
-
-    /**
-     * 移除所有实体
-     */
-    removeAll(): void;
+    private _enabled: boolean = false;
 }

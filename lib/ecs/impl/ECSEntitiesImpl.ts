@@ -2,7 +2,8 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSEntities, ECSEntity } from "../ECSEntity";
+import { ECSEntities } from "../ECSEntities";
+import { ECSEntity } from "../ECSEntity";
 import { ECSComponentsImpl } from "./ECSComponentsImpl";
 
 /**
@@ -38,25 +39,24 @@ export class ECSEntitiesImpl implements ECSEntities {
 
     add(entity: ECSEntity): void {
         entity.__globalComponents = this.components;
-        entity.enabled = true;
+        entity.setEnabled(true);
         this.entities.add(entity);
         this.entitiesByID.set(entity.id, entity);
     }
 
-    removeByID(id: string): void {
-        this.remove(this.get(id));
-    }
-
-    remove(entity: ECSEntity): void {
-        entity.enabled = false;
+    delete(id: string): void;
+    delete(entity: ECSEntity): void;
+    delete(entity: string | ECSEntity): void {
+        if (typeof entity === "string") {
+            entity = this.get(entity);
+        }
+        entity.setEnabled(false);
         entity.__globalComponents = undefined;
         this.entities.delete(entity);
         this.entitiesByID.delete(entity.id);
     }
 
-    removeAll(): void {
-        this.entities.forEach((entity) => {
-            this.remove(entity);
-        });
+    clear(): void {
+        this.entities.forEach((entity) => this.delete(entity));
     }
 }

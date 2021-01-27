@@ -2,7 +2,8 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSSystem, ECSSystems } from "../ECSSystem";
+import { ECSSystem } from "../ECSSystem";
+import { ECSSystems } from "../ECSSystems";
 import { ECSImpl } from "./ECSImpl";
 
 /**
@@ -101,7 +102,7 @@ export class ECSSystemsImpl implements ECSSystems {
         }
 
         // 设置系统运行初始状态
-        system.ecs = this.ecs;
+        system.setECSEnvironment(this.ecs);
         if (typeof priority === "number") {
             system.priority = priority;
             if (priority > this.maxPriority) {
@@ -130,7 +131,7 @@ export class ECSSystemsImpl implements ECSSystems {
         return this;
     }
 
-    remove(system: ECSSystem): ECSSystems {
+    delete(system: ECSSystem): ECSSystems {
         const name = system.name;
         if (this.loadedByName.has(name)) {
             // 从载入完成的列表中删除指定 system
@@ -156,7 +157,7 @@ export class ECSSystemsImpl implements ECSSystems {
 
         // 卸载系统
         system.unload();
-        system.cleanup();
+        system.setECSEnvironment(undefined);
 
         // 检查载入中的系统
         this.checkLoading();
@@ -164,9 +165,9 @@ export class ECSSystemsImpl implements ECSSystems {
         return this;
     }
 
-    removeAll(): ECSSystems {
-        this.loadedByName.forEach((system) => this.remove(system));
-        this.loading.forEach((pair) => this.remove(pair[0]));
+    clear(): ECSSystems {
+        this.loadedByName.forEach((system) => this.delete(system));
+        this.loading.forEach((pair) => this.delete(pair[0]));
         return this;
     }
 

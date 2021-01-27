@@ -2,11 +2,8 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import {
-    ECSComponent,
-    ECSComponents,
-    ECSComponentsIteratorFn,
-} from "../ECSComponent";
+import { ECSComponent } from "../ECSComponent";
+import { ECSComponents } from "../ECSComponents";
 
 /**
  * 组件集合的实现
@@ -41,7 +38,7 @@ export class ECSComponentsImpl implements ECSComponents {
         components.push(component);
     }
 
-    remove(component: ECSComponent): void {
+    delete(component: ECSComponent): void {
         const components = this._all.get(component.name);
         if (components) {
             const i = components.indexOf(component);
@@ -49,16 +46,8 @@ export class ECSComponentsImpl implements ECSComponents {
         }
     }
 
-    removeAll(name: string): void {
+    clear(name: string): void {
         this._all.delete(name);
-    }
-
-    forEach(fn: ECSComponentsIteratorFn): void {
-        this._all.forEach((arr) => {
-            for (const component of arr) {
-                fn(component);
-            }
-        });
     }
 
     //// private

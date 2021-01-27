@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "lib": ["es2015"],
+        "target": "es5",
+        "skipLibCheck": true,
+        "outDir": "../demo/assets/scripts/ecs/",
+        "declaration": true,
+        "declarationMap": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "exclude": ["node_modules", "library", "local", "temp", "build", "settings"]
+}

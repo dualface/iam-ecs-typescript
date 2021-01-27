@@ -2,7 +2,8 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSEvent, ECSEvents } from "../ECSEvent";
+import { ECSEvent } from "../ECSEvent";
+import { ECSEvents } from "../ECSEvents";
 
 /**
  * 事件集合的实现
