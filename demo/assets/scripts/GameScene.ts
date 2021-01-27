@@ -2,14 +2,14 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { AttackSystem } from "./AttackSystem";
-import { newECS } from "./ecs/ECS";
-import { ECSEntity } from "./ecs/ECSEntity";
-import { HealthComponent } from "./HealthComponent";
-import { InputSystem } from "./InputSystem";
-import { MovableComponent } from "./MovableComponent";
-import { MovableSystem } from "./MovableSystem";
-import { RenderNodeComponent } from "./RenderNodeComponent";
+import { HealthComponent } from "./components/HealthComponent";
+import { MovableComponent } from "./components/MovableComponent";
+import { NPCComponent } from "./components/NPCComponent";
+import { RenderNodeComponent } from "./components/RenderNodeComponent";
+import { createECSEnv, ECSEntity } from "./ecs/ecs";
+import { AttackSystem } from "./systems/AttackSystem";
+import { InputSystem } from "./systems/InputSystem";
+import { MovableSystem } from "./systems/MovableSystem";
 
 const { ccclass, property } = cc._decorator;
 
@@ -31,7 +31,7 @@ export default class GameScene extends cc.Component {
     /**
      * 创建 ECS
      */
-    private ecs = newECS();
+    private ecs = createECSEnv();
 
     onLoad() {
         if (!this.npcPrefab) {
@@ -61,8 +61,10 @@ export default class GameScene extends cc.Component {
             // 确定下一次创建 NPC 的倒计时
             this.createCountdown = 0.5;
 
-            // 创建一个 NPC
-            this.createNPC();
+            if (this.ecs.components.all(NPCComponent.NAME).length < 10) {
+                // 当前存活的 NPC 少于 10 个时，创建新 NPC
+                this.createNPC();
+            }
         }
 
         // 持续更新 ECS 状态
@@ -78,6 +80,8 @@ export default class GameScene extends cc.Component {
 
         // 创建一个 NPC 实体，并添加需要的组件
         const npc = new ECSEntity();
+        // 添加 NPC 组件
+        npc.addComponent(new NPCComponent());
         // 添加渲染节点组件，并指定 npcNode
         npc.addComponent(new RenderNodeComponent(npcNode));
         // 添加健康度组件，并指定初始 HP
