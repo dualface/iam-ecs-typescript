@@ -12,6 +12,8 @@ COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
 
 DEMO 源代码: [https://github.com/dualface/ecs-typescript/tree/main/demo/assets/scripts](https://github.com/dualface/ecs-typescript/tree/main/demo/assets/scripts)
 
+QQ 群： 367237484
+
 ~
 
 ## 目标
