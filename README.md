@@ -8,9 +8,13 @@ COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
 
 目前用于 Cocos Creator，不过因为没有依赖任何 Cocos Creator 的接口，所以也可以用在任何其他 JS 项目中。
 
+ECS 系统源代码: [https://github.com/dualface/ecs-typescript/tree/main/lib/ecs](https://github.com/dualface/ecs-typescript/tree/main/lib/ecs)
+
 在线 DEMO 展示: [https://liaoyulei.cn/projects/ecs-typescript/demo/](https://liaoyulei.cn/projects/ecs-typescript/demo/)
 
-DEMO 源代码: [https://github.com/dualface/ecs-typescript/tree/main/demo/assets/scripts](https://github.com/dualface/ecs-typescript/tree/main/demo/assets/scripts)
+适用于 Cocos Creator 3.0 的 DEMO 源代码: [https://github.com/dualface/ecs-typescript/tree/main/demo-3.0/assets/scripts](https://github.com/dualface/ecs-typescript/tree/main/demo-3.0/assets/scripts)
+
+适用于 Cocos Creator 2.4 的 DEMO 源代码: [https://github.com/dualface/ecs-typescript/tree/main/demo-2.4/assets/scripts](https://github.com/dualface/ecs-typescript/tree/main/demo-2.4/assets/scripts)
 
 QQ 群： 367237484
 
