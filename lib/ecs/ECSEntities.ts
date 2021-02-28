@@ -9,6 +9,11 @@ import { ECSEntity } from "./ECSEntity";
  */
 export interface ECSEntities {
     /**
+     * 返回实体总数
+     */
+    size(): number;
+
+    /**
      * 检查指定实体是否存在
      *
      * @param id

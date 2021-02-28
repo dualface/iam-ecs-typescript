@@ -9,6 +9,10 @@ import { ECSComponents } from "../ECSComponents";
  * 组件集合的实现
  */
 export class ECSComponentsImpl implements ECSComponents {
+    size(): number {
+        return this._all.size;
+    }
+
     all<T extends ECSComponent>(name: string): Array<T> {
         return (
             (this._all.get(name) as Array<T>) ??

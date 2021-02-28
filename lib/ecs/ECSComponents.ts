@@ -9,6 +9,11 @@ import { ECSComponent } from "./ECSComponent";
  */
 export interface ECSComponents {
     /**
+     * 返回组件总数
+     */
+    size(): number;
+
+    /**
      * 查询特定名字的所有组件
      *
      * @param name

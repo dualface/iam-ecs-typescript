@@ -18,19 +18,23 @@ export class ECSEntitiesImpl implements ECSEntities {
     /**
      * 跟踪所有实体
      */
-    private readonly entities = new Set<ECSEntity>();
+    private readonly _all = new Set<ECSEntity>();
 
     /**
      * 按照实体 ID 跟踪所有实体
      */
-    private readonly entitiesByID = new Map<string, ECSEntity>();
+    private readonly _allByID = new Map<string, ECSEntity>();
+
+    size(): number {
+        return this._all.size;
+    }
 
     has(id: string): boolean {
-        return this.entitiesByID.has(id);
+        return this._allByID.has(id);
     }
 
     get(id: string): ECSEntity {
-        const entity = this.entitiesByID.get(id);
+        const entity = this._allByID.get(id);
         if (!entity) {
             throw new RangeError(`ECS: entity '${id}' not found`);
         }
@@ -40,8 +44,8 @@ export class ECSEntitiesImpl implements ECSEntities {
     add(entity: ECSEntity): void {
         entity.__globalComponents = this.components;
         entity.setEnabled(true);
-        this.entities.add(entity);
-        this.entitiesByID.set(entity.id, entity);
+        this._all.add(entity);
+        this._allByID.set(entity.id, entity);
     }
 
     delete(id: string): void;
@@ -52,11 +56,11 @@ export class ECSEntitiesImpl implements ECSEntities {
         }
         entity.setEnabled(false);
         entity.__globalComponents = undefined;
-        this.entities.delete(entity);
-        this.entitiesByID.delete(entity.id);
+        this._all.delete(entity);
+        this._allByID.delete(entity.id);
     }
 
     clear(): void {
-        this.entities.forEach((entity) => this.delete(entity));
+        this._all.forEach((entity) => this.delete(entity));
     }
 }
