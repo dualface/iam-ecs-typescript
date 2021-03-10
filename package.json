@@ -1,0 +1,21 @@
+{
+    "name": "ecs-typescript",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "dependencies": {},
+    "devDependencies": {},
+    "scripts": {},
+    "keywords": [
+        "ecs",
+        "game",
+        "framework"
+    ],
+    "author": "liaoyulei",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dualface/ecs-typescript.git"
+    },
+    "homepage": "https://github.com/dualface/ecs-typescript",
+    "license": "Apache-2.0"
+}

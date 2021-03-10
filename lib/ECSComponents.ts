@@ -3,6 +3,7 @@
  */
 
 import { ECSComponent } from "./ECSComponent";
+import { Constructor } from "./__private";
 
 /**
  * 组件集合
@@ -16,16 +17,16 @@ export interface ECSComponents {
     /**
      * 查询特定名字的所有组件
      *
-     * @param name
+     * @param constructor
      */
-    all<T extends ECSComponent>(name: string): T[];
+    all<T extends ECSComponent>(constructor: Constructor<T>): T[];
 
     /**
      * 查询特定名字的第一个组件
      *
-     * @param name
+     * @param constructor
      */
-    get<T extends ECSComponent>(name: string): T;
+    get<T extends ECSComponent>(constructor: Constructor<T>): T;
 
     /**
      * 添加组件
@@ -40,11 +41,4 @@ export interface ECSComponents {
      * @param component
      */
     delete(component: ECSComponent): void;
-
-    /**
-     * 移除特定名字的所有组件
-     *
-     * @param name
-     */
-    clear(name: string): void;
 }

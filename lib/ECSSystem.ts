@@ -9,6 +9,13 @@ import { ECSEnvironment } from "./ECSEnvironment";
  */
 export abstract class ECSSystem {
     /**
+     * 返回类名
+     */
+    get name(): string {
+        return this.constructor.name;
+    }
+
+    /**
      * 系统是否处于允许状态
      */
     enabled = true;
@@ -23,17 +30,10 @@ export abstract class ECSSystem {
      */
     get ecs(): ECSEnvironment {
         if (!this._ecs) {
-            throw new TypeError("ECSSystem.ecs is undefined");
+            throw new TypeError("[ECS] System.ecs is undefined");
         }
         return this._ecs;
     }
-
-    /**
-     * 构造函数，必须从继承类调用
-     *
-     * @param name 系统的名字
-     */
-    protected constructor(readonly name: string) {}
 
     /**
      * 设置系统所属 ECS 环境

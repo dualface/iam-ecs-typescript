@@ -3,6 +3,7 @@
  */
 
 import { ECSSystem } from "./ECSSystem";
+import { Constructor } from "./__private";
 
 /**
  * 系统集合
@@ -11,9 +12,9 @@ export interface ECSSystems {
     /**
      * 返回指定名字的系统
      *
-     * @param name
+     * @param constructor
      */
-    get<T extends ECSSystem>(name: string): T;
+    get<T extends ECSSystem>(constructor: Constructor<T>): T;
 
     /**
      * 添加系统

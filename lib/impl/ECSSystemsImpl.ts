@@ -4,6 +4,7 @@
 
 import { ECSSystem } from "../ECSSystem";
 import { ECSSystems } from "../ECSSystems";
+import { Constructor } from "../__private";
 import { ECSImpl } from "./ECSImpl";
 
 /**
@@ -51,7 +52,7 @@ export class ECSSystemsImpl implements ECSSystems {
 
     start(): void {
         if (this.running) {
-            throw new RangeError("ECS: already is running");
+            throw new RangeError("[ECS] already is running");
         }
         this.running = true;
         this.checkLoading();
@@ -59,7 +60,7 @@ export class ECSSystemsImpl implements ECSSystems {
 
     stop(): void {
         if (!this.running) {
-            throw new RangeError("ECS: not running");
+            throw new RangeError("[ECS] not running");
         }
 
         // 停止所有正在运行的系统
@@ -81,10 +82,11 @@ export class ECSSystemsImpl implements ECSSystems {
         }
     }
 
-    get<T extends ECSSystem>(name: string): T {
+    get<T extends ECSSystem>(constructor: Constructor<T>): T {
+        const name = constructor.name;
         const system = this.loadedByName.get(name);
         if (!system) {
-            throw new RangeError(`ECS: system '${name}' not found`);
+            throw new RangeError(`[ECS] not found system '${name}'`);
         }
         return system as T;
     }
@@ -92,13 +94,15 @@ export class ECSSystemsImpl implements ECSSystems {
     add(system: ECSSystem, priority?: number): ECSSystems {
         const name = system.name;
         if (typeof name !== "string" || name.length === 0) {
-            throw new RangeError(`ECS: system have not the name`);
+            throw new RangeError(
+                `[ECS] system '${system}' not set name by @ecsclass`
+            );
         }
         if (this.loadedByName.has(name)) {
-            throw new RangeError(`ECS: system '${name}' already exists`);
+            throw new RangeError(`[ECS] system '${name}' already exists`);
         }
         if (this.loading.has(name)) {
-            throw new RangeError(`ECS: system '${name}' already in loading`);
+            throw new RangeError(`[ECS] system '${name}' already in loading`);
         }
 
         // 设置系统运行初始状态
@@ -146,7 +150,7 @@ export class ECSSystemsImpl implements ECSSystems {
             // 从正在载入的列表中删除指定 system
             this.loading.delete(name);
         } else {
-            throw new RangeError(`ECS: not found system '${name}`);
+            throw new RangeError(`[ECS] not found system '${name}`);
         }
 
         // 检查是否需要停止系统

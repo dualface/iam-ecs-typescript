@@ -5,17 +5,20 @@
 /**
  * 事件
  */
-export class ECSEvent {
+export abstract class ECSEvent {
     /**
-     * 构造函数，必须从继承类调用
+     * 返回类名
+     */
+    get name(): string {
+        return this.constructor.name;
+    }
+
+    /**
+     * 构造函数
      *
      * 如果 `unique = true`，则同名事件即便多次添加到队列，也只会保留一个。
      *
-     * @param name 事件名字
      * @param unique 同名事件是否保持唯一性
      */
-    protected constructor(
-        readonly name: string,
-        readonly unique: boolean = false
-    ) {}
+    constructor(readonly unique: boolean = false) {}
 }

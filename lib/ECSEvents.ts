@@ -3,6 +3,7 @@
  */
 
 import { ECSEvent } from "./ECSEvent";
+import { Constructor } from "./__private";
 
 /**
  * 事件队列
@@ -18,16 +19,16 @@ export interface ECSEvents {
     /**
      * 读取指定事件的列表
      *
-     * @param name
+     * @param constructor
      */
-    fetch<T extends ECSEvent>(name: string): T[];
+    fetch<T extends ECSEvent>(constructor: Constructor<T>): T[];
 
     /**
      * 检查是否存在指定事件
      *
-     * @param name
+     * @param constructor
      */
-    has(name: string): boolean;
+    has<T extends ECSEvent>(constructor: Constructor<T>): boolean;
 
     /**
      * 清理所有事件

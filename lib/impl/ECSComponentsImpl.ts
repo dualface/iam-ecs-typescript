@@ -4,6 +4,7 @@
 
 import { ECSComponent } from "../ECSComponent";
 import { ECSComponents } from "../ECSComponents";
+import { Constructor } from "../__private";
 
 /**
  * 组件集合的实现
@@ -13,17 +14,20 @@ export class ECSComponentsImpl implements ECSComponents {
         return this._all.size;
     }
 
-    all<T extends ECSComponent>(name: string): Array<T> {
+    all<T extends ECSComponent>(constructor: Constructor<T>): Array<T> {
+        const name = constructor.name;
         return (
             (this._all.get(name) as Array<T>) ??
             (emptyComponentsSet as Array<T>)
         );
     }
 
-    get<T extends ECSComponent>(name: string): T {
-        const components = this.all<T>(name);
+    get<T extends ECSComponent>(constructor: Constructor<T>): T {
+        const components = this.all<T>(constructor);
         if (components.length === 0) {
-            throw new RangeError(`ECS: component '${name}' not found`);
+            throw new RangeError(
+                `[ECS] not found component '${constructor.name}'`
+            );
         }
         return components[0];
     }
@@ -31,7 +35,9 @@ export class ECSComponentsImpl implements ECSComponents {
     add(component: ECSComponent): void {
         const name = component.name;
         if (typeof name !== "string" || name.length === 0) {
-            throw new RangeError(`ECS: component have not the name`);
+            throw new RangeError(
+                `[ECS] component '${component}' not set name by @ecsclass`
+            );
         }
 
         let components = this._all.get(name);
@@ -48,10 +54,6 @@ export class ECSComponentsImpl implements ECSComponents {
             const i = components.indexOf(component);
             components.splice(i, 1);
         }
-    }
-
-    clear(name: string): void {
-        this._all.delete(name);
     }
 
     //// private

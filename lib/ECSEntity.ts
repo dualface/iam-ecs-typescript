@@ -4,6 +4,7 @@
 
 import { ECSComponent } from "./ECSComponent";
 import { ECSComponents } from "./ECSComponents";
+import { Constructor } from "./__private";
 
 /**
  * 用于生成实体唯一 ID
@@ -75,38 +76,40 @@ export class ECSEntity {
      * @param component
      */
     addComponent(component: ECSComponent): ECSEntity {
-        if (this.components.has(component.name)) {
+        const name = component.name;
+        if (this.components.has(name)) {
             throw new RangeError(
-                `ECSEntity.addComponent(): component '${component.name}' already exists`
+                `[ECS] component '${name}' already exists in entity '${this.id}'`
             );
         }
         component.entityID = this.id;
         if (this.__globalComponents) {
             this.__globalComponents.add(component);
         }
-        this.components.set(component.name, component);
+        this.components.set(name, component);
         return this;
     }
 
     /**
      * 检查指定的组件是否存在
      *
-     * @param name
+     * @param constructor
      */
-    hasComponent(name: string): boolean {
-        return this.components.has(name);
+    hasComponent<T extends ECSComponent>(constructor: Constructor<T>): boolean {
+        return this.components.has(constructor.name);
     }
 
     /**
      * 取得指定名字的组件
      *
-     * @param name
+     * @param constructor
      */
-    getComponent<T extends ECSComponent>(name: string): T {
+    getComponent<T extends ECSComponent>(constructor: Constructor<T>): T {
+        const name = constructor.name;
         const component = this.components.get(name);
         if (!component) {
             throw new RangeError(
-                `ECSEntity.getComponent(): component '${name}' not found`
+                `[ECS] not found component '${name}' in entity '${this.id}'`
             );
         }
         return component as T;
@@ -115,12 +118,15 @@ export class ECSEntity {
     /**
      * 移除组件
      *
-     * @param name
+     * @param constructor
      */
-    removeComponent(name: string): ECSEntity {
+    removeComponent<T extends ECSComponent>(
+        constructor: Constructor<T>
+    ): ECSEntity {
+        const name = constructor.name;
         if (!this.components.has(name)) {
             throw new RangeError(
-                `ECSEntity.removeComponent(): component '${name}' not found`
+                `[ECS] not found component '${name}' in entity '${this.id}'`
             );
         }
         const component = this.components.get(name);

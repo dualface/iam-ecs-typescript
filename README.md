@@ -12,13 +12,22 @@ ECS 系统源代码: [https://github.com/dualface/ecs-typescript/tree/main/lib/e
 
 在线 DEMO 展示: [https://liaoyulei.cn/projects/ecs-typescript/demo/](https://liaoyulei.cn/projects/ecs-typescript/demo/)
 
-适用于 Cocos Creator 3.0 的 DEMO 源代码: [https://github.com/dualface/ecs-typescript/tree/main/demo-3.0/assets/scripts](https://github.com/dualface/ecs-typescript/tree/main/demo-3.0/assets/scripts)
+适用于 Cocos Creator 3.0 的 DEMO 源代码: [https://github.com/dualface/ecs-typescript/tree/main/cocos-creator-demo-project/assets/scripts](https://github.com/dualface/ecs-typescript/tree/main/cocos-creator-demo-project/assets/scripts)
 
-适用于 Cocos Creator 2.4 的 DEMO 源代码: [https://github.com/dualface/ecs-typescript/tree/main/demo-2.4/assets/scripts](https://github.com/dualface/ecs-typescript/tree/main/demo-2.4/assets/scripts)
 
 QQ 群： 367237484
 
 ~
+
+
+## CHANGELOG
+
+-   2021/03/10: 发布为 NPC 包，使用 `ecsclass` 装饰器简化代码
+-   2021/02/08: 添加 Cocos Creator 3.0 示例项目
+-   2021/01/26: 初始发布
+
+~
+
 
 ## 目标
 
@@ -39,6 +48,7 @@ QQ 群： 367237484
 -   无性能损耗
 
 ~
+
 
 ## DEMO
 
@@ -81,6 +91,7 @@ QQ 群： 367237484
 -   此外，事件还可以被多个 system 读取，而这些 system 并不需要进行事件注册等操作。
 
 ~
+
 
 ## ECS API 说明
 

@@ -36,7 +36,7 @@ export class ECSEntitiesImpl implements ECSEntities {
     get(id: string): ECSEntity {
         const entity = this._allByID.get(id);
         if (!entity) {
-            throw new RangeError(`ECS: entity '${id}' not found`);
+            throw new RangeError(`[ECS] not found entity '${id}'`);
         }
         return entity;
     }
