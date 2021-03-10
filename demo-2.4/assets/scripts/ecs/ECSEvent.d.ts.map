@@ -1,1 +1,0 @@
-{"version":3,"file":"ECSEvent.d.ts","sourceRoot":"","sources":["../../../../lib/ecs/ECSEvent.ts"],"names":[],"mappings":"AAAA;;GAEG;AAEH;;GAEG;AACH,qBAAa,QAAQ;IAUb,QAAQ,CAAC,IAAI,EAAE,MAAM;IACrB,QAAQ,CAAC,MAAM,EAAE,OAAO;IAV5B;;;;;;;OAOG;IACH,SAAS,aACI,IAAI,EAAE,MAAM,EACZ,MAAM,GAAE,OAAe;CAEvC"}
