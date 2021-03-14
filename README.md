@@ -22,7 +22,7 @@ COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
 
 -   2021/03/14: 增加 `ECSComponentInterface` 接口
 -   2021/03/10: 将 DEMO 迁移到单独的仓库
--   2021/03/10: 发布为 NPC 包，使用 `ecsclass` 装饰器简化代码
+-   2021/03/10: 发布为 NPM 包，使用 `ecsclass` 装饰器简化代码
 -   2021/02/08: 添加 Cocos Creator 3.0 示例项目
 -   2021/01/26: 初始发布
 
