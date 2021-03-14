@@ -2,7 +2,7 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSComponent } from "./ECSComponent";
+import { ECSComponentInterface } from "./ECSComponent";
 import { ECSComponents } from "./ECSComponents";
 import { Constructor } from "./__private";
 
@@ -23,7 +23,7 @@ export class ECSEntity {
     /**
      * 实体的所有组件
      */
-    readonly components = new Map<string, ECSComponent>();
+    readonly components = new Map<string, ECSComponentInterface>();
 
     /**
      * 全局组件集合，由 ECS 指定，让 Entity 可以直接将组件添加到 ECS 中
@@ -75,7 +75,7 @@ export class ECSEntity {
      *
      * @param component
      */
-    addComponent(component: ECSComponent): ECSEntity {
+    addComponent(component: ECSComponentInterface): ECSEntity {
         const name = component.name;
         if (this.components.has(name)) {
             throw new RangeError(
@@ -95,7 +95,9 @@ export class ECSEntity {
      *
      * @param constructor
      */
-    hasComponent<T extends ECSComponent>(constructor: Constructor<T>): boolean {
+    hasComponent<T extends ECSComponentInterface>(
+        constructor: Constructor<T>
+    ): boolean {
         return this.components.has(constructor.name);
     }
 
@@ -104,7 +106,9 @@ export class ECSEntity {
      *
      * @param constructor
      */
-    getComponent<T extends ECSComponent>(constructor: Constructor<T>): T {
+    getComponent<T extends ECSComponentInterface>(
+        constructor: Constructor<T>
+    ): T {
         const name = constructor.name;
         const component = this.components.get(name);
         if (!component) {
@@ -120,7 +124,7 @@ export class ECSEntity {
      *
      * @param constructor
      */
-    removeComponent<T extends ECSComponent>(
+    removeComponent<T extends ECSComponentInterface>(
         constructor: Constructor<T>
     ): ECSEntity {
         const name = constructor.name;
