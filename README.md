@@ -1,12 +1,12 @@
-# ecs-typescript
+# iam-ecs-typescript
 
 使用 TypeScript 实现的一个 ECS 系统。
 
 目前用于 Cocos Creator，不过因为没有依赖任何 Cocos Creator 的接口，所以也可以用在任何其他 JS 项目中。
 
-在线 DEMO 展示: [https://liaoyulei.cn/projects/ecs-typescript/demo/](https://liaoyulei.cn/projects/ecs-typescript/demo/)
+在线 DEMO 展示: [https://liaoyulei.cn/projects/iam-ecs-typescript/demo/](https://liaoyulei.cn/projects/iam-ecs-typescript/demo/)
 
-适用于 Cocos Creator 3.0 的 DEMO 源代码: [https://github.com/dualface/ecs-typescript-demo](https://github.com/dualface/ecs-typescript-demo)
+适用于 Cocos Creator 3.0 的 DEMO 源代码: [https://github.com/dualface/iam-ecs-typescript-demo](https://github.com/dualface/iam-ecs-typescript-demo)
 
 
 QQ 群： 367237484
@@ -20,6 +20,7 @@ COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
 
 ## CHANGELOG
 
+-   2021/03/18: 更名为 `iam-ecs-typescript`
 -   2021/03/14: 增加 `ECSComponentInterface` 接口
 -   2021/03/10: 将 DEMO 迁移到单独的仓库
 -   2021/03/10: 发布为 NPM 包，使用 `ecsclass` 装饰器简化代码
@@ -41,7 +42,7 @@ COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
 
 不过 `ECS` 也并非万能钥匙。在 UI 交互等场景中，`ECS` 用起来就比较繁琐了。所以从实践的角度，我主要将 `ECS` 用于构建游戏世界的玩法实现。而涉及到 UI 交互等场景，仍然采用传统的面向对象架构。
 
-在 `ecs-typescript` 这个实现中，我主要追求以下目标：
+在 `iam-ecs-typescript` 这个实现中，我主要追求以下目标：
 
 -   容易理解的设计
 -   简单明了的 API
@@ -52,13 +53,13 @@ COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
 
 ## DEMO
 
-适用于 Cocos Creator 3.0 的 DEMO 源代码: [https://github.com/dualface/ecs-typescript-demo](https://github.com/dualface/ecs-typescript-demo)
+适用于 Cocos Creator 3.0 的 DEMO 源代码: [https://github.com/dualface/iam-ecs-typescript-demo](https://github.com/dualface/iam-ecs-typescript-demo)
 
 ~
 
 
 ## ECS API 说明
 
-所有 API 都在 `lib/ecs/` 目录中，并且有中文注释，文档此处省略。。。
+所有 API 都在 `lib/` 目录中，并且有中文注释，文档此处省略。。。
 
 \-EOF\-
