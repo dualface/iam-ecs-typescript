@@ -1,25 +1,27 @@
 # iam-ecs-typescript
 
-使用 TypeScript 实现的一个 ECS 系统。
+使用 TypeScript 实现的一个 ECS 系统。目前用于 Cocos Creator，不过因为没有依赖任何 Cocos Creator 的接口，所以也可以用在任何其他支持 TS/JS 的引擎中。
 
-目前用于 Cocos Creator，不过因为没有依赖任何 Cocos Creator 的接口，所以也可以用在任何其他 JS 项目中。
-
-在线 DEMO 展示: [https://liaoyulei.cn/projects/iam-ecs-typescript/demo/](https://liaoyulei.cn/projects/iam-ecs-typescript/demo/)
-
-适用于 Cocos Creator 3.0 的 DEMO 源代码: [https://github.com/dualface/iam-ecs-typescript-demo](https://github.com/dualface/iam-ecs-typescript-demo)
-
-
-QQ 群： 367237484
+```
+QQ 群号码： 367237484
+```
 
 ```
 COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
 ```
+
+在线 DEMO 展示: [https://liaoyulei.cn/projects/iam-ecs-typescript-demo/](https://liaoyulei.cn/projects/iam-ecs-typescript-demo/)
+
+DEMO 源代码: [https://github.com/dualface/iam-ecs-typescript-demo](https://github.com/dualface/iam-ecs-typescript-demo)
+
+ECS 框架源代码: [https://github.com/dualface/iam-ecs-typescript](https://github.com/dualface/iam-ecs-typescript)
 
 ~
 
 
 ## CHANGELOG
 
+-   2021/03/19: 更新 README 和在线 DEMO
 -   2021/03/18: 更名为 `iam-ecs-typescript`
 -   2021/03/14: 增加 `ECSComponentInterface` 接口
 -   2021/03/10: 将 DEMO 迁移到单独的仓库
@@ -53,7 +55,9 @@ COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
 
 ## DEMO
 
-适用于 Cocos Creator 3.0 的 DEMO 源代码: [https://github.com/dualface/iam-ecs-typescript-demo](https://github.com/dualface/iam-ecs-typescript-demo)
+在线 DEMO 展示: [https://liaoyulei.cn/projects/iam-ecs-typescript-demo/](https://liaoyulei.cn/projects/iam-ecs-typescript-demo/)
+
+DEMO 源代码: [https://github.com/dualface/iam-ecs-typescript-demo](https://github.com/dualface/iam-ecs-typescript-demo)
 
 ~
 
