@@ -2,19 +2,19 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSSystem } from "./ECSSystem";
+import { IECSSystem } from "./ECSSystem";
 import { Constructor } from "./__private";
 
 /**
  * 系统集合
  */
-export interface ECSSystems {
+export interface IECSSystems {
     /**
      * 返回指定名字的系统
      *
      * @param constructor
      */
-    get<T extends ECSSystem>(constructor: Constructor<T>): T;
+    get<T extends IECSSystem>(constructor: Constructor<T>): T;
 
     /**
      * 添加系统
@@ -22,22 +22,22 @@ export interface ECSSystems {
      * @param system
      * @param priority
      */
-    add(system: ECSSystem, priority?: number): ECSSystems;
+    add<T extends IECSSystem>(system: T, priority?: number): IECSSystems;
 
     /**
      * 移除系统
      *
      * @param system
      */
-    delete(system: ECSSystem): ECSSystems;
+    delete<T extends IECSSystem>(system: T): IECSSystems;
 
     /**
      * 移除所有系统
      */
-    clear(): ECSSystems;
+    clear(): IECSSystems;
 
     /**
      * 按照优先级对所有系统排序，数值小的优先执行
      */
-    sort(): ECSSystems;
+    sort(): IECSSystems;
 }

@@ -2,7 +2,7 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSEnvironment } from "./lib/ECSEnvironment";
+import { IECSEnvironment } from "./lib/ECSEnvironment";
 import { ECSImpl } from "./lib/impl/ECSImpl";
 
 export * from "./lib/ECSComponent";
@@ -15,6 +15,6 @@ export { ecsclass } from "./lib/__private";
 /**
  * 创建 ECS 环境
  */
-export function createECSEnv(): ECSEnvironment {
+export function createECSEnv(): IECSEnvironment {
     return new ECSImpl();
 }

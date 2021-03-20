@@ -2,10 +2,10 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSComponents } from "./ECSComponents";
-import { ECSEntities } from "./ECSEntities";
+import { IECSComponents } from "./ECSComponents";
+import { IECSEntities } from "./ECSEntities";
 import { ECSEvents } from "./ECSEvents";
-import { ECSSystems } from "./ECSSystems";
+import { IECSSystems } from "./ECSSystems";
 
 /**
  * ECS 运行环境
@@ -29,7 +29,7 @@ import { ECSSystems } from "./ECSSystems";
  *   - 每个 system 执行时都可以查询事件队列
  * - 清理事件队列
  */
-export interface ECSEnvironment {
+export interface IECSEnvironment {
     /**
      * 事件集合
      */
@@ -38,17 +38,17 @@ export interface ECSEnvironment {
     /**
      * 系统集合
      */
-    readonly systems: ECSSystems;
+    readonly systems: IECSSystems;
 
     /**
      * 实体集合
      */
-    readonly entities: ECSEntities;
+    readonly entities: IECSEntities;
 
     /**
      * 组件集合
      */
-    readonly components: ECSComponents;
+    readonly components: IECSComponents;
 
     /**
      * 启动环境

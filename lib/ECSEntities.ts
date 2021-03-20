@@ -7,7 +7,7 @@ import { ECSEntity } from "./ECSEntity";
 /**
  * 实体集合
  */
-export interface ECSEntities {
+export interface IECSEntities {
     /**
      * 返回实体总数
      */

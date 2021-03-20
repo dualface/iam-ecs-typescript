@@ -2,29 +2,29 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSSystem } from "../ECSSystem";
-import { ECSSystems } from "../ECSSystems";
+import { IECSSystem } from "../ECSSystem";
+import { IECSSystems } from "../ECSSystems";
 import { Constructor } from "../__private";
 import { ECSImpl } from "./ECSImpl";
 
 /**
  * ECS 系统集合的实现
  */
-export class ECSSystemsImpl implements ECSSystems {
+export class ECSSystemsImpl implements IECSSystems {
     /**
      * 所有已经载入完成的系统，按照优先级排序
      */
-    private readonly loaded = new Array<ECSSystem>();
+    private readonly loaded = new Array<IECSSystem>();
 
     /**
      * 按照名字查找所有已经载入完成的系统
      */
-    private readonly loadedByName = new Map<string, ECSSystem>();
+    private readonly loadedByName = new Map<string, IECSSystem>();
 
     /**
      * 保存正在载入中的系统，当 ECSSystem.load() 方法完成后移动到 loaded 队列
      */
-    private readonly loading = new Map<string, [ECSSystem, boolean]>();
+    private readonly loading = new Map<string, [IECSSystem, boolean]>();
 
     /**
      * 系统的运行状态
@@ -82,7 +82,7 @@ export class ECSSystemsImpl implements ECSSystems {
         }
     }
 
-    get<T extends ECSSystem>(constructor: Constructor<T>): T {
+    get<T extends IECSSystem>(constructor: Constructor<T>): T {
         const name = constructor.name;
         const system = this.loadedByName.get(name);
         if (!system) {
@@ -91,7 +91,7 @@ export class ECSSystemsImpl implements ECSSystems {
         return system as T;
     }
 
-    add(system: ECSSystem, priority?: number): ECSSystems {
+    add(system: IECSSystem, priority?: number): IECSSystems {
         const name = system.name;
         if (typeof name !== "string" || name.length === 0) {
             throw new RangeError(
@@ -135,7 +135,7 @@ export class ECSSystemsImpl implements ECSSystems {
         return this;
     }
 
-    delete(system: ECSSystem): ECSSystems {
+    delete(system: IECSSystem): IECSSystems {
         const name = system.name;
         if (this.loadedByName.has(name)) {
             // 从载入完成的列表中删除指定 system
@@ -169,14 +169,14 @@ export class ECSSystemsImpl implements ECSSystems {
         return this;
     }
 
-    clear(): ECSSystems {
+    clear(): IECSSystems {
         this.loadedByName.forEach((system) => this.delete(system));
         this.loading.forEach((pair) => this.delete(pair[0]));
         return this;
     }
 
-    sort(): ECSSystems {
-        this.loaded.sort((a: ECSSystem, b: ECSSystem): number => {
+    sort(): IECSSystems {
+        this.loaded.sort((a: IECSSystem, b: IECSSystem): number => {
             if (a.priority > b.priority) {
                 return 1;
             } else if (a.priority < b.priority) {

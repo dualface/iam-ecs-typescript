@@ -3,13 +3,13 @@
  */
 
 import { ECSComponentInterface } from "../ECSComponent";
-import { ECSComponents } from "../ECSComponents";
+import { IECSComponents } from "../ECSComponents";
 import { Constructor } from "../__private";
 
 /**
  * 组件集合的实现
  */
-export class ECSComponentsImpl implements ECSComponents {
+export class ECSComponentsImpl implements IECSComponents {
     size(): number {
         return this._all.size;
     }

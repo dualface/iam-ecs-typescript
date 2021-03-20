@@ -8,7 +8,7 @@ import { Constructor } from "./__private";
 /**
  * 事件队列
  */
-export interface ECSEvents {
+export interface IECSEvents {
     /**
      * 追加事件到队列
      *

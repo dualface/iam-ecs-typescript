@@ -3,7 +3,7 @@
  */
 
 import { ECSComponentInterface } from "./ECSComponent";
-import { ECSComponents } from "./ECSComponents";
+import { IECSComponents } from "./ECSComponents";
 import { Constructor } from "./__private";
 
 /**
@@ -28,7 +28,7 @@ export class ECSEntity {
     /**
      * 全局组件集合，由 ECS 指定，让 Entity 可以直接将组件添加到 ECS 中
      */
-    __globalComponents: ECSComponents | undefined = undefined;
+    __globalComponents: IECSComponents | undefined = undefined;
 
     /**
      * 返回实体可用状态

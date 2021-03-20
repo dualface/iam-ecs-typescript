@@ -2,14 +2,14 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSEntities } from "../ECSEntities";
+import { IECSEntities } from "../ECSEntities";
 import { ECSEntity } from "../ECSEntity";
 import { ECSComponentsImpl } from "./ECSComponentsImpl";
 
 /**
  * 实体集合的实现
  */
-export class ECSEntitiesImpl implements ECSEntities {
+export class ECSEntitiesImpl implements IECSEntities {
     /**
      * 跟踪所有组件
      */

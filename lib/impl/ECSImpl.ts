@@ -2,11 +2,11 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSComponents } from "../ECSComponents";
-import { ECSEntities } from "../ECSEntities";
-import { ECSEnvironment } from "../ECSEnvironment";
+import { IECSComponents } from "../ECSComponents";
+import { IECSEntities } from "../ECSEntities";
+import { IECSEnvironment } from "../ECSEnvironment";
 import { ECSEvents } from "../ECSEvents";
-import { ECSSystems } from "../ECSSystems";
+import { IECSSystems } from "../ECSSystems";
 import { ECSEntitiesImpl } from "./ECSEntitiesImpl";
 import { ECSEventsImpl } from "./ECSEventsImpl";
 import { ECSSystemsImpl } from "./ECSSystemsImpl";
@@ -14,11 +14,11 @@ import { ECSSystemsImpl } from "./ECSSystemsImpl";
 /**
  * ECS 实现
  */
-export class ECSImpl implements ECSEnvironment {
+export class ECSImpl implements IECSEnvironment {
     readonly events: ECSEvents;
-    readonly systems: ECSSystems;
-    readonly entities: ECSEntities;
-    readonly components: ECSComponents;
+    readonly systems: IECSSystems;
+    readonly entities: IECSEntities;
+    readonly components: IECSComponents;
 
     private readonly eventsImpl: ECSEventsImpl;
     private readonly systemsImpl: ECSSystemsImpl;

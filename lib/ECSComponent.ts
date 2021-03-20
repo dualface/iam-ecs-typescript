@@ -5,7 +5,7 @@
 /**
  * 组件接口
  */
-export interface ECSComponentInterface {
+export interface IECSComponentInterface {
     /**
      * 组件的类名
      */
@@ -20,7 +20,7 @@ export interface ECSComponentInterface {
 /**
  * 组件
  */
-export abstract class ECSComponent implements ECSComponentInterface {
+export abstract class ECSComponent implements IECSComponentInterface {
     /**
      * 组件的类名
      */

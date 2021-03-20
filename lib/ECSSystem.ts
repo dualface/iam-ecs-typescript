@@ -2,12 +2,12 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSEnvironment } from "./ECSEnvironment";
+import { IECSEnvironment } from "./ECSEnvironment";
 
 /**
  * 系统接口
  */
-export abstract class ECSSystem {
+export abstract class IECSSystem {
     /**
      * 返回类名
      */
@@ -28,7 +28,7 @@ export abstract class ECSSystem {
     /**
      * 系统所在的 ECS 环境
      */
-    get ecs(): ECSEnvironment {
+    get ecs(): IECSEnvironment {
         if (!this._ecs) {
             throw new TypeError("[ECS] System.ecs is undefined");
         }
@@ -38,7 +38,7 @@ export abstract class ECSSystem {
     /**
      * 设置系统所属 ECS 环境
      */
-    setECSEnvironment(env: ECSEnvironment | undefined) {
+    setECSEnvironment(env: IECSEnvironment | undefined) {
         this._ecs = env;
     }
 
@@ -74,5 +74,5 @@ export abstract class ECSSystem {
     /**
      * 系统所属的 ECS，由 ECS 设置
      */
-    private _ecs: ECSEnvironment | undefined = undefined;
+    private _ecs: IECSEnvironment | undefined = undefined;
 }

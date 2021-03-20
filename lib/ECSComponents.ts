@@ -8,7 +8,7 @@ import { Constructor } from "./__private";
 /**
  * 组件集合
  */
-export interface ECSComponents {
+export interface IECSComponents {
     /**
      * 返回组件总数
      */
