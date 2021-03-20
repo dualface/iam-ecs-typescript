@@ -3,14 +3,14 @@
  */
 
 import { ECSEvent } from "../ECSEvent";
-import { ECSEvents } from "../ECSEvents";
+import { IECSEvents } from "../ECSEvents";
 import { Constructor } from "../__private";
 
 /**
  * 事件集合的实现
  */
-export class ECSEventsImpl implements ECSEvents {
-    push(event: ECSEvent): void {
+export class ECSEventsImpl<T extends ECSEvent> implements IECSEvents {
+    push(event: T): void {
         const name = event.name;
         if (typeof name !== "string" || name.length === 0) {
             throw new RangeError(
@@ -20,7 +20,7 @@ export class ECSEventsImpl implements ECSEvents {
 
         let list = this._events.get(name);
         if (!list) {
-            list = new Array<ECSEvent>();
+            list = new Array<T>();
             this._events.set(name, list);
         }
         if (event.unique) {
@@ -29,14 +29,15 @@ export class ECSEventsImpl implements ECSEvents {
         list.push(event);
     }
 
-    fetch<T extends ECSEvent>(constructor: Constructor<T>): T[] {
+    fetch<T>(constructor: Constructor<T>): T[] {
         const name = constructor.name;
         return (
-            (this._events.get(name) as Array<T>) ?? (emptyEventList as Array<T>)
+            // TODO: 令人疑惑
+            (this._events.get(name) as unknown as Array<T>) ?? (emptyEventList as unknown as Array<T>)
         );
     }
 
-    has<T extends ECSEvent>(constructor: Constructor<T>): boolean {
+    has<T>(constructor: Constructor<T>): boolean {
         const events = this._events.get(constructor.name);
         return events ? events.length > 0 : false;
     }
@@ -47,7 +48,7 @@ export class ECSEventsImpl implements ECSEvents {
 
     //// private
 
-    private _events = new Map<string, Array<ECSEvent>>();
+    private _events = new Map<string, Array<T>>();
 }
 
 /// private

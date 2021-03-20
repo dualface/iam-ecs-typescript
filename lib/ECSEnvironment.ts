@@ -4,7 +4,7 @@
 
 import { IECSComponents } from "./ECSComponents";
 import { IECSEntities } from "./ECSEntities";
-import { ECSEvents } from "./ECSEvents";
+import { IECSEvents } from "./ECSEvents";
 import { IECSSystems } from "./ECSSystems";
 
 /**
@@ -33,7 +33,7 @@ export interface IECSEnvironment {
     /**
      * 事件集合
      */
-    readonly events: ECSEvents;
+    readonly events: IECSEvents;
 
     /**
      * 系统集合

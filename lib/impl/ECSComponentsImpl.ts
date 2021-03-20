@@ -2,7 +2,7 @@
  * COPYRIGHT 2021 ALL RESERVED. (C) liaoyulei, https://github.com/dualface
  */
 
-import { ECSComponentInterface } from "../ECSComponent";
+import { IECSComponentInterface } from "../ECSComponent";
 import { IECSComponents } from "../ECSComponents";
 import { Constructor } from "../__private";
 
@@ -14,7 +14,7 @@ export class ECSComponentsImpl implements IECSComponents {
         return this._all.size;
     }
 
-    all<T extends ECSComponentInterface>(
+    all<T extends IECSComponentInterface>(
         constructor: Constructor<T>
     ): Array<T> {
         const name = constructor.name;
@@ -24,7 +24,7 @@ export class ECSComponentsImpl implements IECSComponents {
         );
     }
 
-    get<T extends ECSComponentInterface>(constructor: Constructor<T>): T {
+    get<T extends IECSComponentInterface>(constructor: Constructor<T>): T {
         const components = this.all<T>(constructor);
         if (components.length === 0) {
             throw new RangeError(
@@ -34,7 +34,7 @@ export class ECSComponentsImpl implements IECSComponents {
         return components[0];
     }
 
-    add(component: ECSComponentInterface): void {
+    add(component: IECSComponentInterface): void {
         const name = component.name;
         if (typeof name !== "string" || name.length === 0) {
             throw new RangeError(
@@ -44,13 +44,13 @@ export class ECSComponentsImpl implements IECSComponents {
 
         let components = this._all.get(name);
         if (!components) {
-            components = new Array<ECSComponentInterface>();
+            components = new Array<IECSComponentInterface>();
             this._all.set(name, components);
         }
         components.push(component);
     }
 
-    delete(component: ECSComponentInterface): void {
+    delete(component: IECSComponentInterface): void {
         const components = this._all.get(component.name);
         if (components) {
             const i = components.indexOf(component);
@@ -63,7 +63,7 @@ export class ECSComponentsImpl implements IECSComponents {
     /**
      * 按照类型分组的所有组件
      */
-    private readonly _all = new Map<string, Array<ECSComponentInterface>>();
+    private readonly _all = new Map<string, Array<IECSComponentInterface>>();
 }
 
 //// private
@@ -71,4 +71,4 @@ export class ECSComponentsImpl implements IECSComponents {
 /**
  * 预定义的空组件集合
  */
-const emptyComponentsSet = new Array<ECSComponentInterface>();
+const emptyComponentsSet = new Array<IECSComponentInterface>();
