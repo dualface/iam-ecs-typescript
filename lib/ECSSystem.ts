@@ -26,20 +26,25 @@ export abstract class ECSSystem {
     priority = 0;
 
     /**
+     * 系统所属的 ECS，由 ECS 设置
+     */
+    private ecsInstance: ECSEnvironment | undefined;
+
+    /**
      * 系统所在的 ECS 环境
      */
     get ecs(): ECSEnvironment {
-        if (!this._ecs) {
+        if (!this.ecsInstance) {
             throw new TypeError("[ECS] System.ecs is undefined");
         }
-        return this._ecs;
+        return this.ecsInstance;
     }
 
     /**
      * 设置系统所属 ECS 环境
      */
-    setECSEnvironment(env: ECSEnvironment | undefined) {
-        this._ecs = env;
+    setEnvironment(env: ECSEnvironment | undefined) {
+        this.ecsInstance = env;
     }
 
     /**
@@ -65,14 +70,7 @@ export abstract class ECSSystem {
     /**
      * 更新状态
      *
-     * @param _dt
+     * @param dt
      */
-    update(_dt: number): void {}
-
-    //// private
-
-    /**
-     * 系统所属的 ECS，由 ECS 设置
-     */
-    private _ecs: ECSEnvironment | undefined = undefined;
+    update(dt: number): void {}
 }

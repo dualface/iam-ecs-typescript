@@ -10,20 +10,33 @@ import { Constructor } from "../__private";
  * 组件集合的实现
  */
 export class ECSComponentsImpl implements ECSComponents {
+    /**
+     * 按照类型分组的所有组件
+     */
+    private components = new Map<string, ECSComponentInterface[]>();
+
+    /**
+     * 返回组件总数
+     */
     size(): number {
-        return this._all.size;
+        return this.components.size;
     }
 
-    all<T extends ECSComponentInterface>(
-        constructor: Constructor<T>
-    ): Array<T> {
-        const name = constructor.name;
-        return (
-            (this._all.get(name) as Array<T>) ??
-            (emptyComponentsSet as Array<T>)
-        );
+    /**
+     * 返回包含特定类型组件的数组
+     *
+     * @param constructor
+     */
+    all<T extends ECSComponentInterface>(constructor: Constructor<T>): T[] {
+        const components = this.components.get(constructor.name);
+        return components ? (components as T[]) : (EMPTY as T[]);
     }
 
+    /**
+     * 取得指定类型组件中的第一个
+     *
+     * @param constructor
+     */
     get<T extends ECSComponentInterface>(constructor: Constructor<T>): T {
         const components = this.all<T>(constructor);
         if (components.length === 0) {
@@ -34,6 +47,11 @@ export class ECSComponentsImpl implements ECSComponents {
         return components[0];
     }
 
+    /**
+     * 添加组件
+     *
+     * @param component
+     */
     add(component: ECSComponentInterface): void {
         const name = component.name;
         if (typeof name !== "string" || name.length === 0) {
@@ -42,28 +60,26 @@ export class ECSComponentsImpl implements ECSComponents {
             );
         }
 
-        let components = this._all.get(name);
+        let components = this.components.get(name);
         if (!components) {
-            components = new Array<ECSComponentInterface>();
-            this._all.set(name, components);
+            components = [];
+            this.components.set(name, components);
         }
         components.push(component);
     }
 
+    /**
+     * 删除特定组件
+     *
+     * @param component
+     */
     delete(component: ECSComponentInterface): void {
-        const components = this._all.get(component.name);
+        const components = this.components.get(component.name);
         if (components) {
             const i = components.indexOf(component);
-            components.splice(i, 1);
+            if (i >= 0) components.splice(i, 1);
         }
     }
-
-    //// private
-
-    /**
-     * 按照类型分组的所有组件
-     */
-    private readonly _all = new Map<string, Array<ECSComponentInterface>>();
 }
 
 //// private
@@ -71,4 +87,4 @@ export class ECSComponentsImpl implements ECSComponents {
 /**
  * 预定义的空组件集合
  */
-const emptyComponentsSet = new Array<ECSComponentInterface>();
+const EMPTY: ECSComponentInterface[] = [];

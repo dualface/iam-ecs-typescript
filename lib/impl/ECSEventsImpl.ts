@@ -10,6 +10,16 @@ import { Constructor } from "../__private";
  * 事件集合的实现
  */
 export class ECSEventsImpl implements ECSEvents {
+    /**
+     * 所有事件
+     */
+    private events = new Map<string, ECSEvent[]>();
+
+    /**
+     * 追加事件到队列
+     *
+     * @param event
+     */
     push(event: ECSEvent): void {
         const name = event.name;
         if (typeof name !== "string" || name.length === 0) {
@@ -18,10 +28,10 @@ export class ECSEventsImpl implements ECSEvents {
             );
         }
 
-        let list = this._events.get(name);
+        let list = this.events.get(name);
         if (!list) {
-            list = new Array<ECSEvent>();
-            this._events.set(name, list);
+            list = [];
+            this.events.set(name, list);
         }
         if (event.unique) {
             list.length = 0;
@@ -29,27 +39,37 @@ export class ECSEventsImpl implements ECSEvents {
         list.push(event);
     }
 
+    /**
+     * 取得指定事件的列表
+     *
+     * @param constructor
+     */
     fetch<T extends ECSEvent>(constructor: Constructor<T>): T[] {
-        const name = constructor.name;
-        return (
-            (this._events.get(name) as Array<T>) ?? (emptyEventList as Array<T>)
-        );
+        const events = this.events.get(constructor.name);
+        return events ? (events as T[]) : (EMPTY as T[]);
     }
 
+    /**
+     * 检查是否存在指定事件
+     *
+     * @param constructor
+     */
     has<T extends ECSEvent>(constructor: Constructor<T>): boolean {
-        const events = this._events.get(constructor.name);
+        const events = this.events.get(constructor.name);
         return events ? events.length > 0 : false;
     }
 
+    /**
+     * 清理所有事件
+     */
     clear(): void {
-        this._events.clear();
+        this.events.clear();
     }
-
-    //// private
-
-    private _events = new Map<string, Array<ECSEvent>>();
 }
 
 /// private
 
-const emptyEventList = new Array<ECSEvent>();
+/**
+ * 预定义的空事件集合
+ */
+const EMPTY: ECSEvent[] = [];

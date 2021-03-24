@@ -17,7 +17,7 @@ export interface ECSEvents {
     push(event: ECSEvent): void;
 
     /**
-     * 读取指定事件的列表
+     * 取得指定事件的列表
      *
      * @param constructor
      */

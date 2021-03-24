@@ -14,7 +14,7 @@ export interface ECSComponentInterface {
     /**
      * 组件的所有者实体 ID
      */
-    entityID: string;
+    entityId: string;
 }
 
 /**
@@ -31,5 +31,5 @@ export abstract class ECSComponent implements ECSComponentInterface {
     /**
      * 组件的所有者实体 ID
      */
-    entityID = "";
+    entityId = "";
 }

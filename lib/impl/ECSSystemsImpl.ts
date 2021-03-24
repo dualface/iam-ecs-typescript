@@ -14,7 +14,7 @@ export class ECSSystemsImpl implements ECSSystems {
     /**
      * 所有已经载入完成的系统，按照优先级排序
      */
-    private readonly loaded = new Array<ECSSystem>();
+    private readonly loaded: ECSSystem[] = [];
 
     /**
      * 按照名字查找所有已经载入完成的系统
@@ -32,24 +32,27 @@ export class ECSSystemsImpl implements ECSSystems {
     private readonly systemsRunning = new Map<string, boolean>();
 
     /**
-     * 所属 ECS
-     */
-    private readonly ecs: ECSImpl;
-
-    /**
      * 当前运行状态
      */
-    private running: boolean = false;
+    private running = false;
 
     /**
-     * 目前最大优先级，后添加的系统会自动使用更大的优先级数值
+     * 下一个优先级值，后添加的系统会自动使用更大的优先级数值
      */
-    private maxPriority: number = 0;
+    private nextPriority = 0;
 
-    constructor(ecs: ECSImpl) {
+    /**
+     * 构造函数
+     *
+     * @param ecs 所属 ECS
+     */
+    constructor(readonly ecs: ECSImpl) {
         this.ecs = ecs;
     }
 
+    /**
+     * 启动所有系统
+     */
     start(): void {
         if (this.running) {
             throw new RangeError("[ECS] already is running");
@@ -58,6 +61,9 @@ export class ECSSystemsImpl implements ECSSystems {
         this.checkLoading();
     }
 
+    /**
+     * 停止所有系统
+     */
     stop(): void {
         if (!this.running) {
             throw new RangeError("[ECS] not running");
@@ -74,6 +80,11 @@ export class ECSSystemsImpl implements ECSSystems {
         this.running = false;
     }
 
+    /**
+     * 更新所有系统
+     *
+     * @param dt
+     */
     update(dt: number): void {
         for (const system of this.loaded) {
             if (system.enabled) {
@@ -82,6 +93,11 @@ export class ECSSystemsImpl implements ECSSystems {
         }
     }
 
+    /**
+     * 取得指定的系统
+     *
+     * @param constructor
+     */
     get<T extends ECSSystem>(constructor: Constructor<T>): T {
         const name = constructor.name;
         const system = this.loadedByName.get(name);
@@ -91,6 +107,12 @@ export class ECSSystemsImpl implements ECSSystems {
         return system as T;
     }
 
+    /**
+     * 添加系统
+     *
+     * @param system
+     * @param priority
+     */
     add(system: ECSSystem, priority?: number): ECSSystems {
         const name = system.name;
         if (typeof name !== "string" || name.length === 0) {
@@ -106,15 +128,15 @@ export class ECSSystemsImpl implements ECSSystems {
         }
 
         // 设置系统运行初始状态
-        system.setECSEnvironment(this.ecs);
+        system.setEnvironment(this.ecs);
         if (typeof priority === "number") {
             system.priority = priority;
-            if (priority > this.maxPriority) {
-                this.maxPriority = priority + 1;
+            if (priority > this.nextPriority) {
+                this.nextPriority = priority + 1;
             }
         } else {
-            system.priority = this.maxPriority;
-            this.maxPriority++;
+            system.priority = this.nextPriority;
+            this.nextPriority++;
         }
         this.systemsRunning.set(system.name, false);
 
@@ -135,6 +157,11 @@ export class ECSSystemsImpl implements ECSSystems {
         return this;
     }
 
+    /**
+     * 删除指定系统
+     *
+     * @param system
+     */
     delete(system: ECSSystem): ECSSystems {
         const name = system.name;
         if (this.loadedByName.has(name)) {
@@ -161,7 +188,7 @@ export class ECSSystemsImpl implements ECSSystems {
 
         // 卸载系统
         system.unload();
-        system.setECSEnvironment(undefined);
+        system.setEnvironment(undefined);
 
         // 检查载入中的系统
         this.checkLoading();
@@ -169,12 +196,18 @@ export class ECSSystemsImpl implements ECSSystems {
         return this;
     }
 
+    /**
+     * 删除所有系统
+     */
     clear(): ECSSystems {
         this.loadedByName.forEach((system) => this.delete(system));
-        this.loading.forEach((pair) => this.delete(pair[0]));
+        this.loading.forEach(([system]) => this.delete(system));
         return this;
     }
 
+    /**
+     * 按照优先级对所有系统排序，数值小的优先执行
+     */
     sort(): ECSSystems {
         this.loaded.sort((a: ECSSystem, b: ECSSystem): number => {
             if (a.priority > b.priority) {
@@ -185,7 +218,6 @@ export class ECSSystemsImpl implements ECSSystems {
                 return 0;
             }
         });
-
         return this;
     }
 
@@ -197,14 +229,16 @@ export class ECSSystemsImpl implements ECSSystems {
     private checkLoading(): void {
         // 已经载入完成的系统移动到 loaded 列表
         // 未载入完成的保持在 loading 列表中
-        this.loading.forEach((pair, name) => {
-            if (!pair[1]) return;
-
-            const system = pair[0];
-            this.loaded.push(system);
-            this.loadedByName.set(name, system);
-            this.loading.delete(name);
+        const removes: string[] = [];
+        this.loading.forEach(([system, loaded], name) => {
+            if (loaded) {
+                this.loaded.push(system);
+                this.loadedByName.set(name, system);
+                removes.push(name);
+            }
         });
+        // 从正在载入列表清理已经完成载入的系统
+        removes.forEach((name) => this.loading.delete(name));
 
         // 重新排序
         this.sort();
@@ -218,10 +252,10 @@ export class ECSSystemsImpl implements ECSSystems {
 
         // 启动所有还未启动的系统
         for (const system of this.loaded) {
-            if (this.systemsRunning.get(system.name) === true) continue;
-
-            system.start();
-            this.systemsRunning.set(system.name, true);
+            if (this.systemsRunning.get(system.name) !== true) {
+                system.start();
+                this.systemsRunning.set(system.name, true);
+            }
         }
     }
 }

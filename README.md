@@ -21,6 +21,8 @@ ECS 框架源代码: [https://github.com/dualface/iam-ecs-typescript](https://gi
 
 ## CHANGELOG
 
+-   版本 1.1.5 打断兼容性的改动: `ECSComponent.entityID` 改名为 `ECSComponent.entityId`
+-   2021/03/24: 按照 [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html) 更新了代码和注释
 -   2021/03/19: 更新 README 和在线 DEMO
 -   2021/03/18: 更名为 `iam-ecs-typescript`
 -   2021/03/14: 增加 `ECSComponentInterface` 接口
